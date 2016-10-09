@@ -84,7 +84,11 @@ Phaser.Loader = function() {
   this.atlas = noop;
   this.audio = noop;
   this.onLoadComplete = new Phaser.Signal();
-  this.start = noop;
+  this.start = function() {
+    setTimeout(function() {
+      this.onLoadComplete.dispatch();
+    }.bind(this), 0);
+  };
 };
 Phaser.Tween = function(obj) {
   var t = new TWEEN.Tween(obj);
